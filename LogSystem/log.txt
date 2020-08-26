@@ -1,0 +1,3 @@
+INFO 2020-08-26 15:15:13 Hello main infor F:\VisualStudio\LogSystem\LogSystem\main.cpp 24 
+ERROR 2020-08-26 15:15:13 Hello main error F:\VisualStudio\LogSystem\LogSystem\main.cpp 25 
+FATAL 2020-08-26 15:15:13 Hello main fatal F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 

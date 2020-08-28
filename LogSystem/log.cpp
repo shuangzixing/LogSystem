@@ -1,66 +1,36 @@
-#include<stdexcept>
 #include "log.h"
 
-
-//Log::Log(const std::string& filename, LOG_LEVEL ll, LOG_TARGET lt)
-//{
-//
-//}
 Log* Log::instance = nullptr;
 
 
 Log::Log()
 {
-
 }
 
 Log::~Log()
 {
 	m_ofs.close();
-	if (instance != nullptr)
-	{
-		delete instance;
-		instance = nullptr;
-	}
 }
 
-void Log::set(const std::string& filename, LOG_LEVEL level, LOG_TARGET target, const std::string& str)
+void Log::init(const std::string& filename, LOG_LEVEL level, LOG_TARGET target, const std::string& str)
 {
 	m_ofs = std::ofstream(filename.c_str(), std::ios::out | std::ios::trunc);
 	if (!m_ofs)
 		throw("can't open output file " + filename);
 	m_level = level;
 	m_target = target;
-	split(str, m_saveFlag);
+	split(str, m_saveMember);
 }
 
-void Log::debug(const std::string& str, const std::string& file, const std::string& line)
-{
-	update(LOG_LEVEL::DEBUG, str, file, line);
-}
 
-void Log::info(const std::string& str, const std::string& file, const std::string& line)
+void Log::writeLog(const std::string& log, Log::LOG_LEVEL level, const std::string& source, const std::string& line)
 {
-	update(LOG_LEVEL::INFO, str, file, line);
-}
-
-void Log::error(const std::string& str, const std::string& file, const std::string& line)
-{
-	update(LOG_LEVEL::ERROR, str, file, line);
-}
-
-void Log::fatal(const std::string& str, const std::string& file, const std::string& line)
-{
-	update(LOG_LEVEL::FATAL, str, file, line);
-}
-
-void Log::update(Log::LOG_LEVEL level, const std::string& str, const std::string& file, const std::string& line)
-{
-	if (level<m_level)
+	std::lock_guard<std::mutex> lockForWritelog(m_mutexForWriteLog);
+	if (level < m_level)
 	{
+		//m_oss.str("");
 		return;
 	}
-
 	m_data["datetime"] = currentDateTime();
 	switch (level)
 	{
@@ -80,14 +50,15 @@ void Log::update(Log::LOG_LEVEL level, const std::string& str, const std::string
 		m_data["level"] = "DEBUG";
 		break;
 	}
-	m_data["log"] = str;
-	m_data["source"] = file;
+	m_data["log"] = log;
+	//m_oss.str("");
+	m_data["source"] = source;
 	m_data["line"] = line;
-	if (m_target==LOG_TARGET::CONSOLE)
+	if (m_target == LOG_TARGET::CONSOLE)
 	{
 		printToConsole();
 	}
-	else if (m_target==LOG_TARGET::LOGFILE)
+	else if (m_target == LOG_TARGET::FILE)
 	{
 		saveToFile();
 	}
@@ -101,7 +72,7 @@ void Log::update(Log::LOG_LEVEL level, const std::string& str, const std::string
 
 void Log::printToConsole()
 {
-	for (auto i : m_saveFlag)
+	for (auto i : m_saveMember)
 	{
 		std::cout << m_data[i] << " ";
 	}
@@ -110,7 +81,7 @@ void Log::printToConsole()
 
 void Log::saveToFile()
 {
-	for (auto i : m_saveFlag)
+	for (auto i : m_saveMember)
 	{
 		m_ofs << m_data[i] << " ";
 	}
@@ -128,14 +99,14 @@ const std::string currentDateTime()
 	return buf;
 }
 
-void split(const std::string& str, std::vector<std::string>& tokens, char ch) 
+void split(const std::string& str, std::vector<std::string>& tokens, char delimiters)
 {
-	std::string::size_type lastPos = str.find_first_not_of(ch, 0);
-	std::string::size_type pos = str.find_first_of(ch, lastPos);
-	while (pos!=std::string::npos||std::string::npos!=lastPos)
+	std::string::size_type lastPos = str.find_first_not_of(delimiters, 0);
+	std::string::size_type pos = str.find_first_of(delimiters, lastPos);
+	while (pos != std::string::npos || std::string::npos != lastPos)
 	{
 		tokens.emplace_back(str.substr(lastPos, pos - lastPos));
-		lastPos = str.find_first_not_of(ch, pos);
-		pos = str.find_first_of(ch, lastPos);
+		lastPos = str.find_first_not_of(delimiters, pos);
+		pos = str.find_first_of(delimiters, lastPos);
 	}
 }

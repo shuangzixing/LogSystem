@@ -1,3 +1,21 @@
-INFO 2020-08-26 15:15:13 Hello main infor F:\VisualStudio\LogSystem\LogSystem\main.cpp 24 
-ERROR 2020-08-26 15:15:13 Hello main error F:\VisualStudio\LogSystem\LogSystem\main.cpp 25 
-FATAL 2020-08-26 15:15:13 Hello main fatal F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 0 F:\VisualStudio\LogSystem\LogSystem\main.cpp 19 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 1 F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 2 F:\VisualStudio\LogSystem\LogSystem\main.cpp 19 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 3 F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 4 F:\VisualStudio\LogSystem\LogSystem\main.cpp 19 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 5 F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 6 F:\VisualStudio\LogSystem\LogSystem\main.cpp 19 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 7 F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 8 F:\VisualStudio\LogSystem\LogSystem\main.cpp 19 
+DEBUG 2020-08-28 16:50:21 Hello funLog Debug! even in 10: 9 F:\VisualStudio\LogSystem\LogSystem\main.cpp 27 
+DEBUG 2020-08-28 16:50:21 Hello main Debug 3 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 48 
+DEBUG 2020-08-28 16:50:21 Hello main Debug 1 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 49 
+INFO 2020-08-28 16:50:21 Hello main infor 1 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 50 
+ERROR 2020-08-28 16:50:21 Hello main error 1 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 51 
+DEBUG 2020-08-28 16:50:21 Hello main Debug 1 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 52 
+FATAL 2020-08-28 16:50:21 Hello main Fatal 1 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 53 
+DEBUG 2020-08-28 16:50:21 Hello main Debug 2 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 8 
+INFO 2020-08-28 16:50:21 Hello main infor 2 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 9 
+ERROR 2020-08-28 16:50:21 Hello main error 2 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 10 
+DEBUG 2020-08-28 16:50:21 Hello main Debug 2 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 11 
+FATAL 2020-08-28 16:50:21 Hello main Fatal 2 from int F:\VisualStudio\LogSystem\LogSystem\main.cpp 12 

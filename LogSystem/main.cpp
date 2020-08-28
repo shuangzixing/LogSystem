@@ -1,32 +1,56 @@
 #include<stdio.h>
 #include<iostream>
+#include<thread>
 #include "log.h"
 
-
-
-void funlog(void)
+void funLog(void)
 {
+	LOG_DEBUG("Hello main Debug " << 2 << " from int");
+	LOG_INFO("Hello main infor " << 2 << " from int");
+	LOG_ERROR("Hello main error " << 2 << " from int");
+	LOG_DEBUG("Hello main Debug " << 2 << " from int");
+	LOG_FATAL("Hello main Fatal " << 2 << " from int");
+}
 
+void funLogEven()
+{
+	for (size_t i = 0; i < 10; i+=2)
+	{
+		LOG_DEBUG("Hello funLog Debug! even in 10: " << i);
+	}
+}
+
+void funLogOdd()
+{
+	for (size_t i = 1; i < 10; i += 2)
+	{
+		LOG_DEBUG("Hello funLog Debug! even in 10: " << i);
+	}
 }
 
 int main()
 {
-	Log* logger = Log::getInstance("log.txt", Log::LOG_LEVEL::INFO, Log::LOG_TARGET::ALL, "level_datetime_log_source_line");
 	try
 	{
+		LOG_INIT("log.txt", Log::LOG_LEVEL::DEBUG, Log::LOG_TARGET::ALL, "level_datetime_log_source_line");
 	}
 	catch (const std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
+		return -1;
 	}
-	funlog();
-	logger->debug("Hello main Debug", __FILE__, std::to_string(__LINE__));
-	logger->info("Hello main infor", __FILE__, std::to_string(__LINE__));
-	logger->error("Hello main error", __FILE__, std::to_string(__LINE__));
-	logger->debug("Hello main Debug", __FILE__, std::to_string(__LINE__));
-	logger->fatal("Hello main fatal", __FILE__, std::to_string(__LINE__));
 
-	Log* loggger2 = Log::getInstance("log.txt", Log::LOG_LEVEL::INFO, Log::LOG_TARGET::CONSOLE, "level_datetime_log_source_line");
-	//std::cout << "logger: " << logger << std::endl;
-	//std::cout << "logger2: " << loggger2 << std::endl;
+	std::thread t1(funLogEven);
+	std::thread t2(funLogOdd);
+	t1.join();
+	t2.join();
+
+	LOG_DEBUG("Hello main Debug " << 3 << " from int");
+	LOG_DEBUG("Hello main Debug " << 1 << " from int");
+	LOG_INFO("Hello main infor " << 1 << " from int");
+	LOG_ERROR("Hello main error " << 1 << " from int");
+	LOG_DEBUG("Hello main Debug " << 1 << " from int");
+	LOG_FATAL("Hello main Fatal " << 1 << " from int");
+	funLog();
+	delete Log::getInstance();
 }
